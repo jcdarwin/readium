@@ -55,10 +55,18 @@ Readium.Models.NcxToc = Readium.Models.Toc.extend({
 
 		title: "//ncx:docTitle/ncx:text",
 
+		// One level of nesting for the time being.
 		navs: [ "//ncx:navMap/ncx:navPoint", { 
 			text: "ncx:navLabel/ncx:text",
-			href: "ncx:content/@src"
+			href: "ncx:content/@src",
+			id:   "@id",
+			navs: [ "ncx:navPoint", { 
+				text: "ncx:navLabel/ncx:text",
+				href: "ncx:content/@src",
+				id:   "@id"
+			} ]
 		} ]
+		
 	},
 
 	parse: function(xmlDom) {

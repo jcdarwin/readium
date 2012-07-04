@@ -41,13 +41,26 @@ Readium.Views.NcxTocView = Readium.Views.TocViewBase.extend({
 		this.setVisibility();
 		var ol = $("<ol></ol>");
 		var navs = this.model.get("navs");
-		for(var i = 0; i < navs.length; i++) {
-			ol.append( this.nav_template(navs[i]) );
-		}
+		
+		// Recurse down the navigation structure.
+		ol = this.render_navs(ol, navs, this.nav_template);
 		this.$('#toc-body').html("<h2>" + (this.model.get("title") || "Contents") + "</h2>")
 		this.$('#toc-body').append(ol);
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
 		return this;
+	},
+
+	render_navs: function(ol, navs, template) {
+		for(var i = 0; i < navs.length; i++) {
+			if ( navs[i].navs && navs[i].navs.length > 0 ) {
+				var ol_children = $("<ol></ol>");
+				ol_children = this.render_navs(ol_children, navs[i].navs, template);				
+				ol.append( $(template(navs[i])).append( ol_children ) );
+			} else {
+				ol.append( template(navs[i]) );
+			}
+		}
+		return ol;
 	}
 
 });
