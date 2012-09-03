@@ -22,11 +22,24 @@ window.Readium = {
 		// use it trigger a reset event on the library
 		_lawnchair = new Lawnchair(function() {
 			this.all(function(all) {
-				window._library.reset(all);							
+
+				// Exclude entries in the store that are for epubView properties. These should not be 
+				// rendered in the list of epubs in the library
+				var ePUBList = _.reject(all, function(element) { 
+					return element.key.split("_")[1] === "epubViewProperties";
+				});
+				window._library.reset(ePUBList);							
 			});
 		});
 
 		// TODO: this is not how we should do this, we should use a proper backbone view.
+
+		document.body.addEventListener('drop', function(e) {
+		    e.stopPropagation();
+		    e.preventDefault();
+		    // todo stop this!
+		    window._fp_view.handleFileSelect({target: e.dataTransfer});
+		  }, false);
 
 		$("#block-view-btn").click(function(e) {
 			$('#library-items-container').addClass("block-view").removeClass("row-view");
@@ -37,8 +50,6 @@ window.Readium = {
 			$('#library-items-container').addClass("row-view").removeClass("block-view");
 			Readium.Utils.setCookie("lib_view", "row", 1000);
 		});
-
-		
 	}
 };
 

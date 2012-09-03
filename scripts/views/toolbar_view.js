@@ -6,18 +6,21 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
 		this.model.on("change:current_theme", this.renderThemeButton, this);
+        this.model.on("change:spine_position", this.hideOrShowMoButton, this);
 	},
 
 	render: function() {
 		this.renderBarVibility();
 		this.renderFullScreen();
 		this.renderThemeButton();
+		this.renderTitle();
 		return this;
 	},
 
 	renderBarVibility: function() {
 		var visible = this.model.get("toolbar_visible");
 		this.$('#show-toolbar-button').toggle( !visible );
+		this.$('#toolbar-title').toggle( !visible );
 		this.$('#top-bar').toggle( visible );
 		return this;
 	},
@@ -36,6 +39,21 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		return this;
 	},
 
+	renderTitle: function() {
+		var title = this.model.epub.get("title");
+		this.$('#toolbar-title').html(title);
+		return this;
+	},
+
+    hideOrShowMoButton: function() {
+        if (this.model.getCurrentSection().hasMediaOverlay()) {
+            $("#play-mo-btn").show();
+        }
+        else {
+            $("#play-mo-btn").hide();
+        }
+    },
+    
 	events: {
 		"click #hide-toolbar-button": "hide_toolbar",
 		"click #show-toolbar-button": "show_toolbar",
@@ -77,12 +95,12 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 	},
 
 	play_mo: function() {
-		if(this.model.get("mo_playing")) {
-			this.model.pauseMo();
+        var moController = this.model.get("media_overlay_controller");
+		if (moController.get("active_mo")) {
+			moController.pauseMo();
 		}
 		else {
-			this.model.playMo(false);
+			moController.playMo();
 		}
-		
 	}
 });

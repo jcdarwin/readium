@@ -1228,19 +1228,27 @@ html {
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
+.offscreenText {
+  display: none; }
+
+#toolbar-el {
+  height: 52px; }
+
 .navbar .nav > li > a {
   padding: 5px 0; }
 .navbar li {
-  margin: 0;
+  margin: 3px;
   padding: 0; }
 .navbar .brand {
-  padding: 5px;
+  padding: 8px;
   margin-left: 10px; }
 .navbar .divider-vertical {
-  height: 46px; }
+  height: 52px;
+  background-color: black;
+  border-right: 1px solid #3D3D3D; }
 .navbar .divider-vertical.stubby {
   margin-top: 8px;
-  height: 30px; }
+  height: 35px; }
 .navbar .nav-icon {
   height: 36px;
   width: 36px; }
@@ -1248,9 +1256,29 @@ html {
   width: 142px;
   height: 36px; }
 
+#toolbar-title {
+  text-align: center;
+  color: #999;
+  font-weight: normal;
+  font-size: 1.0em;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  margin: 18px 0;
+  display: none; }
+
+.parchment-theme #toolbar-title {
+  color: #876C67; }
+
 #show-toolbar-button {
-  padding: 5px;
-  margin-right: 12px; }
+  padding: 8px;
+  margin-right: 7px;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+#add-book-li {
+  margin-right: 22px; }
 
 #settings {
   position: fixed;
@@ -1326,8 +1354,11 @@ span.setting-button:hover {
 body {
   margin: 0;
   padding: 0;
-  position: relative;
-  padding-top: 45; }
+  position: absolute;
+  top: 52px;
+  bottom: 0px;
+  overflow: hidden;
+  width: 100%; }
 
 #next-page-button {
   right: 0;
@@ -1409,11 +1440,9 @@ body {
   z-index: 10; }
 
 /*.apple-fixed-layout*/
-.apple-fixed-layout #readium-right-content {
-  height: 90%; }
-
 #readium-right-content {
-  height: 100%; }
+  height: 100%;
+  width: 100%; }
 
 .invisible {
   visibility: hidden;
@@ -1451,14 +1480,6 @@ body {
   left: 0%; }
 .two-up .fixed-page-wrap.center_page {
   z-index: 11; }
-
-body.apple-fixed-layout {
-  height: 100%;
-  width: 100%;
-  overflow: hidden; }
-
-.apple-fixed-layout #readium-book-view-el {
-  margin: auto; }
 
 #readium-info {
   text-align: center;
@@ -1644,7 +1665,6 @@ body.apple-fixed-layout {
   top: 0;
   z-index: 999;
   bottom: 0;
-  margin-top: 45px;
   border-left: 1px solid #DDD;
   font-size: 0.8em;
   overflow: hidden;
@@ -1737,27 +1757,3 @@ body.apple-fixed-layout {
     color: #666; }
     .night-theme #readium-content-container.mo-playing .current-mo-content {
       color: white; }
-
-#regions-not-available {
-  padding: 10px;
-  color: #B94A48;
-  background-color: #F2DEDE;
-  border-color: #EED3D7;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 18px;
-  font-weight: normal; }
-  #regions-not-available div {
-    margin: 10px; }
-  #regions-not-available strong {
-    font-weight: bold; }
-  #regions-not-available code {
-    color: #111111;
-    background-color: white;
-    border: 1px solid #B94A48;
-    padding: 2px 5px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px; }
-  #regions-not-available li {
-    margin: 10px 0px; }

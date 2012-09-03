@@ -1,3 +1,12 @@
+Timer = function() {};
+Timer.prototype.start = function() {this.start = new Date()};
+Timer.prototype.stop = function() {this.stop = new Date()};
+Timer.prototype.report = function() {
+	console.log("===================Timer Report======================");
+	console.log(this.stop - this.start);
+	console.log("===================Timer Report======================");
+};
+
 Readium.Models.LibraryItem = Backbone.Model.extend({
 
 	idAttribute: "key",
@@ -21,7 +30,18 @@ Readium.Models.LibraryItem = Backbone.Model.extend({
 						that.remove(key);
 					});
 				}
-			});		
+			});
+
+			// Remove the viewer preferences as well
+			propertiesKey = key + "_epubViewProperties";
+			this.get(propertiesKey, function(epubViewProperties) {
+				if(epubViewProperties) {
+					Readium.FileSystemApi(function(fs) {
+						fs.rmdir(epubViewProperties.key);
+						that.remove(propertiesKey);
+					});
+				}
+			});
 		});
 	}
 });
@@ -39,7 +59,7 @@ Readium.Views.LibraryItemView = Backbone.View.extend({
 	className: "book-item clearfix",
 
 	initialize: function() {
-		this.template = _.template( $('#library-item-template').html() );
+		this.template = Handlebars.templates.library_item_template;
 	},
 
 	render: function() {
@@ -80,7 +100,7 @@ Readium.Views.LibraryItemsView = Backbone.View.extend({
 	className: 'row-view clearfix',
 
 	initialize: function() {
-		this.template = _.template( $('#library-items-template').html() );
+		this.template = Handlebars.templates.library_items_template;
 		this.collection.bind('reset', this.render, this);
 		this.collection.bind('add',   this.addOne, this);
 	},
@@ -137,7 +157,7 @@ Readium.Views.ExtractItemView = Backbone.View.extend({
 	el: '#progress-container',
 
 	initialize: function() {	
-		this.template = _.template( $('#extracting-item-template').html() );
+		this.template = Handlebars.templates.extracting_item_template;
 		this.model.bind('change', this.render, this);
 		this.model.bind("change:error", this.extractionFailed, this);
 	},
@@ -218,7 +238,7 @@ Readium.Views.FilePickerView = Backbone.View.extend({
 	},
 
 	resetForm: function() {
-
+		this.$('input').val("");
 	},
 
 	handleUrl: function(evt) {
@@ -236,9 +256,7 @@ Readium.Views.FilePickerView = Backbone.View.extend({
 
 	handleFileSelect: function(evt) {
 		var files = evt.target.files; // FileList object
-		var url = window.webkitURL.createObjectURL(files[0]);
-		// TODO check src filename
-		var extractor = new Readium.Models.ZipBookExtractor({url: url, src_filename: files[0].name});
+		var extractor = new Readium.Models.ZipBookExtractor({file: files[0], src_filename: files[0].name});
 		this.beginExtraction(extractor);
 	},
 
@@ -251,18 +269,23 @@ Readium.Views.FilePickerView = Backbone.View.extend({
 
 	beginExtraction: function(extractor) {
 		var that = this;
+		var timer = new Timer();
+		timer.start();
 		window._extract_view = new Readium.Views.ExtractItemView({model: extractor});
 		extractor.on("extraction_success", function() {
 			var book = extractor.packageDoc.toJSON();
+			timer.stop();
+			timer.report();
 			that.collection.add(new Readium.Models.LibraryItem(book));
+			that.resetForm();
 			setTimeout(function() {
 				chrome.tabs.create({url: "/views/viewer.html?book=" + book.key });
 			}, 800);
 		});
+		extractor.on("change:failure", this.resetForm, this);
+		
 		extractor.extract();
-		this.resetForm();
 		this.hide();
 	}
 
 });
-

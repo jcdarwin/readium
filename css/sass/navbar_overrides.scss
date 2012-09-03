@@ -1,3 +1,7 @@
+#toolbar-el {
+	height: 52px;
+}
+
 .navbar {
 
 	.nav > li > a {
@@ -5,22 +9,24 @@
 	}
 
 	li {
-		margin: 0;
+		margin: 3px;
 		padding: 0;
 	}
 
 	.brand {
-		padding: 5px;
+		padding: 8px;
 		margin-left: 10px;
 	}
 
 	.divider-vertical {
-		height: 46px;
+		height: 52px;
+		background-color: black;
+		border-right: 1px solid #3D3D3D;
 	}
 
 	.divider-vertical.stubby {
 		margin-top: 8px;
-		height: 30px;
+		height: 35px;
 	}
 
 	.nav-icon {
@@ -33,9 +39,34 @@
 		height: 36px;
 	}
 
+
 }
 
+#toolbar-title {
+	text-align: center;
+	color: #999;
+	font-weight: normal;
+	font-size: 1.0em;
+	letter-spacing: 0.5em;
+	text-transform: uppercase;
+	margin: 18px 0;
+	display: none;
+}
+
+.parchment-theme #toolbar-title {
+	color: #876C67;
+}
+
+
 #show-toolbar-button {
-	padding: 5px;
-	margin-right: 12px;
+	padding: 8px;
+	margin-right: 7px;
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+#add-book-li {
+	margin-right: 22px;
 }
