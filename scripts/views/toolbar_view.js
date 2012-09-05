@@ -22,6 +22,11 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.$('#show-toolbar-button').toggle( !visible );
 		this.$('#toolbar-title').toggle( !visible );
 		this.$('#top-bar').toggle( visible );
+
+    // JCD: Ensure that our layout will extend over the (now blank & hidden) toolbar area.
+    $('body').toggleClass('body_full', !visible);
+    $('#readium-right-content').toggleClass('margin_top', !visible);
+
 		return this;
 	},
 

@@ -78,8 +78,9 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 
 	renderPageButtons: function() {
 		var vis = this.model.get("toolbar_visible");
-		this.$("#prev-page-button").toggle(vis);
-		this.$("#next-page-button").toggle(vis);
+		// JCD: We want to keep the nav buttons visible always.
+		//this.$("#prev-page-button").toggle(vis);
+		//this.$("#next-page-button").toggle(vis);
 		return this;
 	},
 

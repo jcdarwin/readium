@@ -13,6 +13,32 @@
 	</head>
 	<body>
 		
+  <!--[if lt IE 10]>
+		<script type="text/javascript" src="scripts/CFInstall.min.js"></script>
+		<style>
+		 .chromeFrameInstallDefaultStyle {
+		   width: 100%; /* default is 800px */
+		   border: 5px solid blue;
+		 }
+		</style>
+ 
+		<div id="prompt">
+ 
+		</div>
+ 
+		<script>
+		 // The conditional ensures that this code will only execute in IE,
+		 // Therefore we can use the IE-specific attachEvent without worry
+		 window.attachEvent("onload", function() {
+		   CFInstall.check({
+			 mode: "overlay", // the default
+			 node: "prompt"
+		   });
+		 });
+		</script>
+	<![endif]-->
+
+  <![if !IE]>
 		<div class="navbar navbar-fixed-top"><!-- le top bar -->
 
 			<div class="navbar-inner" id="inner-top-bar">
@@ -302,5 +328,7 @@
 	        g.src='http://www.google-analytics.com/ga.js';
 	        s.parentNode.insertBefore(g,s)}(document,'script'));
 	    </script>
+
+  <![endif]>
 	</body>
 </html>

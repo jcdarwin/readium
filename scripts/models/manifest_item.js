@@ -37,7 +37,18 @@ Readium.Models.ManifestItem = Backbone.Model.extend({
 		if(!dom) {
 			return;
 		}
-		var viewportTag = dom.getElementsByName("viewport")[0];
+		try {
+  		var viewportTag = dom.getElementsByName("viewport")[0];
+		} catch (e) {
+      // JCD: Firefox work-around: for some reason we're not seeing getElementsByName in the dom.
+      var tags = dom.getElementsByTagName('meta');
+      for(var h = 0; h < tags.length; h++) {
+        if ( tags[h].name == 'viewport' ) {
+          var viewportTag = tags[h];
+          break;
+        }
+      }      
+		}
 		if(!viewportTag) {
 			return null;
 		}

@@ -117,8 +117,347 @@ this.db.transaction(function(a){a.executeSql(e,[],d,b)});return this}}}());
  * 
  * Requires: 1.2.2+
  */
+/*
 (function(d){function e(a){var b=a||window.event,c=[].slice.call(arguments,1),f=0,e=0,g=0,a=d.event.fix(b);a.type="mousewheel";b.wheelDelta&&(f=b.wheelDelta/120);b.detail&&(f=-b.detail/3);g=f;b.axis!==void 0&&b.axis===b.HORIZONTAL_AXIS&&(g=0,e=-1*f);b.wheelDeltaY!==void 0&&(g=b.wheelDeltaY/120);b.wheelDeltaX!==void 0&&(e=-1*b.wheelDeltaX/120);c.unshift(a,f,e,g);return(d.event.dispatch||d.event.handle).apply(this,c)}var c=["DOMMouseScroll","mousewheel"];if(d.event.fixHooks)for(var h=c.length;h;)d.event.fixHooks[c[--h]]=
 d.event.mouseHooks;d.event.special.mousewheel={setup:function(){if(this.addEventListener)for(var a=c.length;a;)this.addEventListener(c[--a],e,!1);else this.onmousewheel=e},teardown:function(){if(this.removeEventListener)for(var a=c.length;a;)this.removeEventListener(c[--a],e,!1);else this.onmousewheel=null}};d.fn.extend({mousewheel:function(a){return a?this.bind("mousewheel",a):this.trigger("mousewheel")},unmousewheel:function(a){return this.unbind("mousewheel",a)}})})(jQuery);
+*/
+/* Copyright (c) 2011 Brandon Aaron (http://brandonaaron.net)
+ * Licensed under the MIT License (LICENSE.txt).
+ *
+ * Thanks to: Andrew Cobby (@andrewcobby http://github.com/cobbweb)
+ *              - Refactored for jQuery 1.7+ only
+ *              - Use MozMousePixelScroll for new Gecko browsers
+ * Thanks to: http://adomas.org/javascript-mouse-wheel/ for some pointers.
+ * Thanks to: Mathias Bank(http://www.mathias-bank.de) for a scope bug fix.
+ * Thanks to: Seamus Leahy for adding deltaX and deltaY
+ *
+ * Version: 2.0.0
+ *
+ * Recommended for jQuery 1.7+
+ * Should work with older versions though
+ */
+
+(function($,undefined) {
+
+    var types = ['DOMMouseScroll', 'mousewheel', 'MozMousePixelScroll'];
+
+    if ($.event.fixHooks) {
+        for (var i=types.length; i;) {
+            $.event.fixHooks[types[--i]] = $.event.mouseHooks;
+        }
+    }
+
+    $.event.special.mousewheel = {
+        setup: function() {
+            if (this.addEventListener) {
+                for (var i=types.length; i;) {
+                    this.addEventListener(types[--i], handler, false);
+                }
+            } else {
+                this.onmousewheel = handler;
+            }
+        },
+
+        teardown: function() {
+            if (this.removeEventListener) {
+                for (var i=types.length; i;) {
+                    this.removeEventListener(types[--i], handler, false);
+                }
+            } else {
+                this.onmousewheel = null;
+            }
+        }
+    };
+
+$.fn.extend({
+    mousewheel: function(fn) {
+        return fn ? this.on("mousewheel", fn) : this.trigger("mousewheel");
+    },
+    
+    unmousewheel: function(fn) {
+        return this.off("mousewheel", fn);
+    }
+});
+
+    function handler(event) {
+        var orgEvent = event || window.event, args = [].slice.call(arguments, 1), delta = 0, deltaX = 0, deltaY = 0;
+        event = $.event.fix(orgEvent);
+        event.type = "mousewheel";
+
+        // Old school scrollwheel delta
+        if (orgEvent.wheelDelta) {
+            delta = orgEvent.wheelDelta / 120;
+        }
+
+        if (orgEvent.detail) {
+            if (orgEvent.type == types[2]) {
+                // Firefox 4+, unbind old DOMMouseScroll event
+                this.removeEventListener(types[0], handler, false);
+                delta = -orgEvent.detail / 42;
+            } else {
+                delta = -orgEvent.detail / 3;
+            }
+        }
+
+        // New school multidimensional scroll (touchpads) deltas
+        deltaY = delta;
+
+        // Gecko
+        if (orgEvent.axis !== undefined && orgEvent.axis === orgEvent.HORIZONTAL_AXIS) {
+            deltaY = 0;
+            deltaX = -1 * delta;
+        }
+
+        // Webkit
+        if (orgEvent.wheelDeltaY !== undefined) {
+            deltaY = orgEvent.wheelDeltaY / 120;
+        }
+
+        if (orgEvent.wheelDeltaX !== undefined) {
+            deltaX = -1 * orgEvent.wheelDeltaX / 120;
+        }
+
+        // Add event and delta to the front of the arguments
+        args.unshift(event, delta, deltaX, deltaY);
+
+        return ($.event.dispatch || $.event.handle).apply(this, args);
+    }
+
+})(jQuery);
+
+
+/**
+* pan_and_zoom.min
+*/
+; // start this bad boy off with a semicolon, thats right a semicolon
+
+(function($) {
+
+	/************ BEGIN VirtualRectangle Class Definition ***********/
+	var VirtualRectangle = function(startRect) {
+		this.startRect = startRect;
+		this.top 	= startRect.top;
+		this.left 	= startRect.left;
+		this.width 	= startRect.width;
+		this.height = startRect.height;
+		this.scale 	= 1.0;
+	};
+
+	VirtualRectangle.prototype.applyConstraints = function() {
+		
+	};
+
+	VirtualRectangle.prototype.getZoom = function() {
+		return this.height / this.startRect.height;
+	};
+
+	VirtualRectangle.prototype.getOffsetX = function() {
+		return (this.left - this.startRect.left) / this.scale;
+	};
+
+	VirtualRectangle.prototype.getOffsetY = function() {
+		return (this.top - this.startRect.top) / this.scale;
+	};
+
+	VirtualRectangle.prototype.pan = function(deltaX, deltaY) {
+		this.top += deltaY;
+		this.left += deltaX;
+	}
+
+	VirtualRectangle.prototype.zoom = function(originX, originY, delta) {
+		var scale = (this.width + delta) / this.startRect.width;
+		var width = scale * this.startRect.width;
+		var height = scale * this.startRect.height;
+
+		// we want to keep the transorm origin in th same place on screen
+		// so we need to do a transformation to compensate
+		var rightShift = 0; //(originX)/(this.startRect.width) * (width - this.width);
+		var upShift = 0;// (originY)/(this.startRect.height) * (height - this.height);
+		
+		this.width = width;
+		this.height = height;
+		this.scale = scale;
+		this.top -= upShift;
+		this.left -= rightShift;
+	};
+
+	VirtualRectangle.prototype.applyScale = function(originX, originY, scale) {
+
+		if(scale > 4) scale = 4;
+		if(scale < 0.1) scale = 0.1;
+		
+		var width = scale * this.startRect.width;
+		var height = scale * this.startRect.height;
+		
+		// we want to keep the transorm origin in th same place on screen
+		// so we need to do a transformation to compensate
+		var rightShift =0// 0.5 * (width - this.width);
+		var upShift = 0//.5 * (height - this.height);
+		this.width = width;
+		this.height = height;
+		this.scale = scale;
+		this.top -= upShift;
+		this.left -= rightShift;
+	};
+
+	/************ END VirtualRectangle Class Definition ***********/
+
+	var getTransformString = function(vrect) {
+		var str =  'scale(' + vrect.getZoom() + ') '
+			str +=	'translate('+vrect.getOffsetX()+'px, '+vrect.getOffsetY()+'px)'
+			return str;
+	};
+	
+	var bindMouseWheelHandler = function($elem, vRect, startRender, stopRender, options) {
+		var timeout = null;
+		// zoom via mouse wheel events
+		$elem.mousewheel(function(event, dt) {
+			event.preventDefault();
+
+			vRect.zoom(event.offsetX, event.offsetY, dt*options.scaleRate);
+			
+			if(timeout) {
+				clearTimeout(timeout);
+			}
+			startRender();
+			// set the timeout to stop running
+			timeout = setTimeout(function() {
+				stopRender();
+			}, 35);
+			
+		});
+
+	};
+
+	var bindMouseDownHandler = function($elem, vRect, startRender, stopRender, options) {
+		var mouseTrack = false;
+		var mousePos = {
+			x: 0,
+			y: 0
+		}
+		// pan and zoom via click and drag
+		$elem.mousedown(function(e) {
+			mouseTrack = true;
+			mousePos.x = e.clientX;
+			mousePos.y = e.clientY;
+			startRender();
+		}).mouseup(function(e) {
+			mouseTrack = false;
+			stopRender();
+		}).mousemove(function(e) {
+			if(mouseTrack) {
+				var deltaX = e.clientX - mousePos.x;
+				var deltaY = e.clientY - mousePos.y;
+				vRect.pan(deltaX, deltaY);
+				vRect.applyConstraints();
+				mousePos.x = e.clientX;
+				mousePos.y = e.clientY;
+			}
+		});
+		
+	};
+
+	var bindGestureHandler = function($elem, vRect, startRender, stopRender, options) {
+
+		var timeout; // capture this the click handler functions closure
+		var startScale = 1;
+
+		$elem.on("gesturestart", function(event) {
+			event.preventDefault();
+			startScale = event.originalEvent.scale
+			startRender();
+		}).on("gestureend", function(event) {
+			event.preventDefault();
+
+			stopRender();
+		}).on("gesturechange", function(event) {
+			event.preventDefault();
+			/*var log = ""
+			for(x in event) {
+				log += x + "\n";
+			}
+			alert(log);*/
+			vRect.applyScale(0, 0, event.originalEvent.scale);
+			// if(timeout) {
+			// 	clearTimeout(timeout);
+			// }
+			startRender();
+			// set the timeout to stop running
+			// timeout = setTimeout(function() {
+			// 	stopRender();
+			// }, 105);
+		});
+	}
+
+	$.fn.zoomAndScale = function(options) {
+
+		options = $.extend({}, $.fn.zoomAndScale.defaults, options);
+
+		return this.each(function() {
+			var $elem = $(this);
+			var $parent = $('body');
+
+			// put it in the center of it's parent
+			var right = ($elem.width() -  $parent.width()) / 2;
+			var top = ($elem.height() -  $parent.height()) / 2 + 20;
+			if(right > 0) {
+				$elem.css({
+				"position": "relative",
+				"right": right + "px",
+				"top": "-" + top + "px"
+				});
+			}
+			
+
+
+			var dontRender = true;
+			
+			var startRect = {
+				top: 0,
+				left: 0,
+				width: $elem.width(),
+				height: $elem.height()
+			};
+			var virtualRect = new VirtualRectangle(startRect);
+			virtualRect.applyScale(0, 0, ( $parent.height() / $elem.height() ) * 0.9 );
+			$elem.css('-webkit-transform', getTransformString(virtualRect) );
+
+			//$elem.css('-webkit-transform-origin', "0 0");
+
+			$elem.css('-webkit-transform', getTransformString(virtualRect) );
+
+			// render loop for the element
+			var render = function() {
+				if(dontRender) return;
+				$elem.css('-webkit-transform', getTransformString(virtualRect) );
+				setTimeout(render, options.frameRate);
+			};
+
+			var startRender = function() {
+				if(dontRender) {
+					dontRender = false;
+					render();
+				}
+			};
+
+			var stopRender = function() {
+				dontRender = true;
+			}
+
+			bindMouseDownHandler($elem, virtualRect, startRender, stopRender, options);
+			bindMouseWheelHandler($elem, virtualRect, startRender, stopRender, options);
+			bindGestureHandler($elem, virtualRect, startRender, stopRender, options);
+		
+			
+		});
+	};
+
+	$.fn.zoomAndScale.defaults = {
+		frameRate: 30,
+		scaleRate: 30
+	}
+
+})(jQuery);
 /**
 * Jath is free software provided under the MIT license.
 *	See LICENSE file for full text of the license.

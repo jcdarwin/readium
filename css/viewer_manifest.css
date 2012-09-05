@@ -1757,3 +1757,12 @@ body {
     color: #666; }
     .night-theme #readium-content-container.mo-playing .current-mo-content {
       color: white; }
+
+/* JCD: extra CSS for toolbar tweaks */
+.body_full{
+  top: 0px;
+}
+
+.margin_top{
+  margin-top:52px;
+}

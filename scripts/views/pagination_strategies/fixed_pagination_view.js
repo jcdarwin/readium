@@ -140,14 +140,16 @@ Readium.Views.FixedPaginationView = Readium.Views.PaginationViewBase.extend({
 
 			this.$el.width(meta.width * 2);
 			this.$el.height(meta.height);
-			this.zoomer.fitToBest();
+      // JCD: For some reason, the next line places the book at the top left -- we don't want that.
+			//this.zoomer.fitToBest();
 
 			if (!this.zoomed) {
 
 				this.zoomed = true;
-				// setTimeout(function() {
-				// 	$('#page-wrap').zoomAndScale(); //<= this was a little buggy last I checked but it is a super cool feature
-				// }, 1)	
+				 setTimeout(function() {
+				 // JCD: Reactivate zoomAndScale
+				 	$('#page-wrap').zoomAndScale(); //<= this was a little buggy last I checked but it is a super cool feature
+				 }, 1)	
 			}
 		}
 	},	

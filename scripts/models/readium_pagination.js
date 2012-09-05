@@ -100,7 +100,61 @@ Readium.Models.ReadiumPagination = Backbone.Model.extend({
 
 		if (curr_pg[0] <= 1) {
 
-			this.epubController.goToPrevSection();
+      // JCD: A Hack so that, when at the beginning of one of our fixed-layout sections, 
+      // and going backwards, we get directed to the end of the previous section.
+      switch ( this.epubController.id ) {
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/intro':
+          window.location.href = 'index.html';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_01':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_intro';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_02':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_01';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_03':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_02';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_04':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_03';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_05':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_04';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_06':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_05';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_07':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_06';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_08':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_07';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_09':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_08';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_10':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_09';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_11':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_10';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_12':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_11';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_13':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_12';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_14':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_13';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/colophon':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_14';
+          break;
+        default:
+    			this.epubController.goToPrevSection();
+      }
+
 		}
 		// REFACTORING CANDIDATE: The pagination/spine position relationship is still muddied. As a result, 
 		//   the assumption that a single content document (spine element) is rendered in every scrolling view must be
@@ -147,7 +201,61 @@ Readium.Models.ReadiumPagination = Backbone.Model.extend({
 
 		if (curr_pg[curr_pg.length - 1] >= this.get("num_pages")) {
 
-			this.epubController.goToNextSection();
+      // JCD: A Hack so that, when at the end of one of our fixed-layout sections, we
+      // get directed to the start of the next section.
+      switch ( this.epubController.id ) {
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/intro':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_01';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_01':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_02';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_02':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_03';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_03':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_04';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_04':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_05';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_05':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_06';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_06':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_07';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_07':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_08';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_08':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_09';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_09':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_10';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_10':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_11';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_11':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_12';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_12':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_13';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_13':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_section_14';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/section_14':
+          window.location.href = 'viewer.html?book=lml58_panz_epub_individual_colophon';
+          break;
+        case 'learningmedia.co.nz/lml58_panz_epub_individual/colophon':
+          window.location.href = 'index.html';
+          break;
+        default:
+    			this.epubController.goToNextSection();
+      }
+      
 		}
 		else if (!this.epubController.get("two_up")) {
 

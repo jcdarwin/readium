@@ -9,12 +9,18 @@ for (var i = 0; i<elems.length; i++) {
                 continue;
         }
         if (elems[i].id.indexOf("i18n_html_", 0) == 0) {
+          try{
                 var msg = chrome.i18n.getMessage(elems[i].id);
+          } catch(e) {
+          }
                 if (msg != "") {
                         elems[i].innerHTML = msg;
                 }
         } else if (elems[i].id.indexOf("i18n_", 0) == 0) {
+          try{
                 var msg = chrome.i18n.getMessage(elems[i].id);
+          } catch(e) {
+          }
                 if (msg != "") {
                         elems[i].innerText = msg;
                 }
