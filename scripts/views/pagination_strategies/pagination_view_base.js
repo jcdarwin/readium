@@ -108,9 +108,21 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	linkClickHandler: function(e) {
 		e.preventDefault();
 
-		var href = e.srcElement.attributes["href"].value;
+    // JCD: Handle Firefox.
+    try {
+  		var href = e.srcElement.attributes["href"].value;
+  	} catch (err) {
+  		var href = e.target.attributes["href"].value;      
+  	}
 		if(href.match(/^http(s)?:/)) {
-			chrome.tabs.create({"url": href});
+		  // JCD: We want to be able to navigate to external links.
+		  // Also, for some reason chrome is not an object.
+			// chrome.tabs.create({"url": href});
+		  window.location.href = href;
+    } else if ( href.match(new RegExp('^viewer.html\\?book=')) && ! href.match(new RegExp('^viewer.html\\?book=' + this.model.attributes.key)) ) {
+      // JCD: Catch those links that resolve outside the current publication,
+      // but do resolve to another publication loaded into our library.
+		  window.location.href = '../../../../../' + href;
 		} else {
 			this.model.goToHref(href);
 		}
@@ -222,6 +234,15 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 			e.preventDefault();
 			that.pages.goLeft();
 		});
+
+    // JCD: Catch and transmit Firefox mouse wheel events to the parent,
+    // JCD: as Firefox won't bubble mouse wheel events up above the iframe. 
+    // JCD: Unfortunately, this is not working.
+		$(dom).on("DOMMouseScroll", function(e) {
+			e.preventDefault();
+			window.parent.$('#page-wrap').trigger("DOMMouseScroll", e);
+		});
+
 	},
 
 	// inject mathML parsing code into an iframe
