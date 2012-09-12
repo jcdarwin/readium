@@ -24,7 +24,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/intro/intro.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/intro/intro.epub",
 		"title": "The Learning Landscape: Introduction",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -50,7 +50,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_01/section_01.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_01/section_01.epub",
 		"title": "Section 1: 8interactive",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -76,7 +76,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_02/section_02.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_02/section_02.epub",
 		"title": "Section 2: Award Reading",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -102,7 +102,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_03/section_03.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_03/section_03.epub",
 		"title": "Section 3: Clean Slate Press",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -128,7 +128,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_04/section_04.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_04/section_04.epub",
 		"title": "Section 4: ESA Publications Ltd",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -154,7 +154,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_05/section_05.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_05/section_05.epub",
 		"title": "Section 5: Essential Resources",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -180,7 +180,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_06/section_06.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_06/section_06.epub",
 		"title": "Section 6: Global Education Services",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -206,8 +206,8 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_07/section_07.epub",
-		"title": "Section 7 Hana Limited",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_07/section_07.epub",
+		"title": "Section 7: Hana Limited",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
 		"apple_fixed": true,
@@ -232,7 +232,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_08/section_08.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_08/section_08.epub",
 		"title": "Section 8: Kiwa Media",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -258,7 +258,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_09/section_09.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_09/section_09.epub",
 		"title": "Section 9: Learning Media Ltd",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -284,7 +284,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_10/section_10.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_10/section_10.epub",
 		"title": "Section 10: MJA Publishing Ltd",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -310,7 +310,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_11/section_11.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_11/section_11.epub",
 		"title": "Section 11: Rainbow Reading",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -336,7 +336,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_12/section_12.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_12/section_12.epub",
 		"title": "Section 12: Ryan Publications",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -362,7 +362,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_13/section_13.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_13/section_13.epub",
 		"title": "Section 13: Skylight Publishing",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -388,7 +388,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/section_14/section_14.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/section_14/section_14.epub",
 		"title": "Section 14: South Pacific Press",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}, {
@@ -414,7 +414,7 @@ window.ReadiumLibraryData = [
 		"publisher": "learningmedia.co.nz",
 		"rights": "Provided by learningmedia.co.nz.",
 		"spread": "",
-		"src_url": "http://education.nz.org/panz_webbook/epub_content/lml58_panz_epub_individual/colophon/section_14.epub",
+		"src_url": "http://readium.newzealandeducated.com/epub_content/lml58_panz_epub_individual/colophon/colophon.epub",
 		"title": "Colophon",
 		"updated_at": "2012-06-15T00:11:57.065Z"
 	}

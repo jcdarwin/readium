@@ -114,7 +114,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
   	} catch (err) {
   		var href = e.target.attributes["href"].value;      
   	}
-		if(href.match(/^http(s)?:/)) {
+		if(href.match(/^http(s)?:/) || href.match(/^mailto/)) {
 		  // JCD: We want to be able to navigate to external links.
 		  // Also, for some reason chrome is not an object.
 			// chrome.tabs.create({"url": href});
