@@ -305,7 +305,8 @@ $.fn.extend({
 	/************ END VirtualRectangle Class Definition ***********/
 
 	var getTransformString = function(vrect) {
-		var str =  'scale(' + vrect.getZoom() + ') '
+	  // JCD: Stop the image "flipping" upside down because of negative scale coordinates.
+		var str =  'scale(' + Math.abs(vrect.getZoom()) + ') '
 			str +=	'translate('+vrect.getOffsetX()+'px, '+vrect.getOffsetY()+'px)'
 			return str;
 	};
