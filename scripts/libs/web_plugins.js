@@ -306,9 +306,16 @@ $.fn.extend({
 
 	var getTransformString = function(vrect) {
 	  // JCD: Stop the image "flipping" upside down because of negative scale coordinates.
-		var str =  'scale(' + Math.abs(vrect.getZoom()) + ') '
-			str +=	'translate('+vrect.getOffsetX()+'px, '+vrect.getOffsetY()+'px)'
-			return str;
+		var str =  'scale(' + Math.abs(vrect.getZoom()) + ') ';
+
+    // JCD: Sort out the weird viewport behaviour of the ipad, whereby it cuts off bits of our content.
+    var isiPad = /ipad/i.test(navigator.userAgent.toLowerCase());
+    if (isiPad) {
+      str = "scale(1) "; 
+    }
+
+		str +=	'translate('+vrect.getOffsetX()+'px, '+vrect.getOffsetY()+'px)'
+		return str;
 	};
 	
 	var bindMouseWheelHandler = function($elem, vRect, startRender, stopRender, options) {
