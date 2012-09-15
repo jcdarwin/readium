@@ -15,6 +15,12 @@ Readium.Views.FixedPaginationView = Readium.Views.PaginationViewBase.extend({
 		this.model.on("FXL_goToPage", this.spinePositionChangeHandler, this);
 		this.model.on("change:two_up", this.setUpMode, this);
 		this.model.on("change:meta_size", this.setContainerSize, this);
+
+		// JCD: We want to ensure the 'page_read_dir' cookie is set when going back to the library.
+		// Unfortunately this handler doesn't work exactly the way we want, but we get the desired
+		// behaviour 
+		// $('#back-to-lib-button').on('click', this.setReadDirCookie, this);
+		this.setReadDirCookie();
 	},
 
 	render: function() {
@@ -191,6 +197,11 @@ Readium.Views.FixedPaginationView = Readium.Views.PaginationViewBase.extend({
 		var size = this.model.get("font_size") / 10;
 		$('#readium-content-container').css("font-size", size + "em");
 		this.showCurrentPages();
+	},
+
+	setReadDirCookie: function() {
+	  // JCD: The default page-read-dir is the default page-prog-dir.
+	  Readium.Utils.setCookie('page_read_dir', Readium.Utils.setCookie('page-prog-dir'), 1000);  
 	}
 });
 

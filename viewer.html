@@ -13,7 +13,6 @@
     <link rel="apple-touch-icon" href="/images/lml58_panz_icon.jpg"/>
 
     <!-- JCD: Script to prompt iOS users to add the app to their home screen. -->
-    <!-- We have to sort out a problem with certain JS libraries not loading before this can work -->
     <!-- http://cubiq.org/add-to-home-screen -->
     <link rel="stylesheet" href="/css/add2home.css">
     <script type="text/javascript">
@@ -23,10 +22,11 @@
       lifespan:10000,
       expire:2,
       touchIcon:true,
-      message:'Install this web app on your home screen. Tap `%icon` and then <strong>Add to Home Screen</strong>. Alternatively, download the <a href="http://readium.newzealandeducated.com/lml58_panz_epub.epub">EPUB3 version</a> for offline use.'
+      message:'Download the <a href="http://readium.newzealandeducated.com/lml58_panz_epub.epub">EPUB3 version</a> for offline use.'
     };
     </script>
-    <!-- <script type="application/javascript" src="/scripts/add2home.js"></script> -->
+    <!-- JCD: The add2home script is disabled, as the iPad's apple-mobile-web-app-capable behaviour is a bit buggy for our publication. -->
+    <script type="application/javascript" src="/scripts/add2home.js"></script>
     
 		<!-- Le styles -->
 		<link rel="stylesheet" type="text/css" href="/css/viewer_manifest.css">
@@ -39,7 +39,7 @@
 
  		<div class="navbar navbar-fixed-top" id='toolbar-el'><!-- le top bar -->
 
-			<div class="navbar-inner" id="top-bar">
+			<div class="navbar-inner" id="top-bar" style="display: none;">
 				<div class="container" style="width: 100%">
 
 					<a class="brand" data-toggle="modal" href="#readium-info" id='bar-logo' role="button">
@@ -54,7 +54,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#" id='toggle-toc-btn' role="button">
+							<a href="#" id='toggle-toc-btn' role="button" style="display: none;">
 								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt="Table of contents"/>
 							</a>
 						</li>

@@ -58,6 +58,11 @@ Readium.Views.LibraryItemView = Backbone.View.extend({
 
 		"click .read": function(e) {
 			this.model.openInReader();
+		},
+
+		// JCD: We want to allow the reader to open the publication by clicking on its title.
+		"click .title": function(e) {
+			this.model.openInReader();
 		}
 		
 	}

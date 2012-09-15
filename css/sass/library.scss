@@ -55,6 +55,11 @@ img.read:hover {
   cursor: pointer;
 }
 
+/* JCD: We want the user to be able to open a book by clicking on its title. */
+.info-item.title:hover {
+  cursor: pointer;
+}
+
 /***** The book details modal *******/
 .details-modal {
   height: 300px;

@@ -47,7 +47,23 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 			success: function() {
 
 				// restore the position the reader left off at from cookie storage
-				var pos = that.restorePosition();
+				// JCD: In our multi-section publication, restoring the position is problematic
+				// as it causes "jumps" when we move from one publication (section) to the next.
+				// Because of this we'll make use of a new variable, 'use_memorized_position', in
+				// conjunction with the cookie 'page_read_dir' set when moving from one section to
+				// another.
+				if (! that.epub.get('use_memorized_position')) {
+				  if (Readium.Utils.getCookie('page_read_dir') === "rtl") {
+				    // JCD: We're going right-to-left: show the last page of the previous section.
+				    var pos = that.epub.packageDocument.get("spine").length - 1;
+				  } else {
+				    // JCD: We're going left-to-right: show the first page of the next section.
+				    var pos = 0;
+				  }
+				} else {
+					var pos = that.restorePosition();
+				}
+
 				that.set("spine_position", pos);
 
 				// tell the paginator to start rendering spine items from the 

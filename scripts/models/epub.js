@@ -51,6 +51,7 @@ Readium.Models.EPUB = Backbone.Model.extend({
 			"orientation": this.get("orientation"),
 			"package_doc_path": this.get("package_doc_path"),
 			"page_prog_dir": this.get("page_prog_dir"),
+			"page_read_dir": this.get("page_read_dir"),
 			"paginate_backwards": this.get("paginate_backwards"),
 			"pubdate": this.get("pubdate"),
 			"publisher": this.get("publisher"),

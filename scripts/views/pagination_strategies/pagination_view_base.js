@@ -122,7 +122,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
     } else if ( href.match(new RegExp('^viewer.html\\?book=')) && ! href.match(new RegExp('^viewer.html\\?book=' + this.model.attributes.key)) ) {
       // JCD: Catch those links that resolve outside the current publication,
       // but do resolve to another publication loaded into our library.
-		  window.location.href = '../../../../../' + href;
+		  window.location.href = '../../../../../../' + href;
 		} else {
 			this.model.goToHref(href);
 		}

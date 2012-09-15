@@ -6,19 +6,48 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
 		this.model.on("change:current_theme", this.renderThemeButton, this);
-        this.model.on("change:spine_position", this.hideOrShowMoButton, this);
+		this.model.on("change:spine_position", this.hideOrShowMoButton, this);
+
+    // JCD: We need to ensure that the 'toolbar_visible' cookie is set when entering a page.
+    var toolbar_visible = Readium.Utils.getCookie('toolbar_visible');
+    this.internalRenderBarVisibility( toolbar_visible === 'true' );
+
 	},
 
 	render: function() {
-		this.renderBarVibility();
+		this.internalRenderBarVisibility();
 		this.renderFullScreen();
 		this.renderThemeButton();
 		this.renderTitle();
 		return this;
 	},
 
+  // JCD: We want to maintain toolbar visibility / invisibility between publications
+  // so we'll track the toolbar visibility using a cookie.
 	renderBarVibility: function() {
 		var visible = this.model.get("toolbar_visible");
+		this.internalRenderBarVisibility(visible);
+    return this;
+  },
+  
+	internalRenderBarVisibility: function(visible) {
+    if (typeof visible === 'undefined') {
+  		var visible = this.model.get("toolbar_visible");
+      if(Readium.Utils.getCookie("toolbar_visible")) {
+        if(Readium.Utils.getCookie("toolbar_visible") == 'true') {
+          visible = true;
+        } else {
+          visible = false;
+        }
+      } else {
+        Readium.Utils.setCookie('toolbar_visible', true, 1000);
+      }
+    } else {
+      Readium.Utils.setCookie('toolbar_visible', visible, 1000);
+    }
+    
+    this.model.set("toolbar_visible", visible);
+
 		this.$('#show-toolbar-button').toggle( !visible );
 		this.$('#toolbar-title').toggle( !visible );
 		this.$('#top-bar').toggle( visible );

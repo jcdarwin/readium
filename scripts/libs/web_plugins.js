@@ -308,7 +308,7 @@ $.fn.extend({
 	  // JCD: Stop the image "flipping" upside down because of negative scale coordinates.
 		var str =  'scale(' + Math.abs(vrect.getZoom()) + ') ';
 
-    // JCD: Sort out the weird viewport behaviour of the ipad, whereby it cuts off bits of our content.
+    // JCD: Sort out the weird viewport behaviour of the iPad, whereby it cuts off bits of our content.
     var isiPad = /ipad/i.test(navigator.userAgent.toLowerCase());
     if (isiPad) {
       str = "scale(1) "; 
