@@ -12,22 +12,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="apple-touch-icon" href="/images/lml58_panz_icon.jpg"/>
 
-    <!-- JCD: Script to prompt iOS users to add the app to their home screen. -->
-    <!-- http://cubiq.org/add-to-home-screen -->
-    <link rel="stylesheet" href="/css/add2home.css">
-    <script type="text/javascript">
-    var addToHomeConfig = {
-      animationIn: 'bubble',
-      animationOut: 'drop',
-      lifespan:10000,
-      expire:2,
-      touchIcon:true,
-      message:'Download the <a href="http://readium.newzealandeducated.com/lml58_panz_epub.epub">EPUB3 version</a> for offline use.'
-    };
-    </script>
-    <!-- JCD: The add2home script is disabled, as the iPad's apple-mobile-web-app-capable behaviour is a bit buggy for our publication. -->
-    <script type="application/javascript" src="/scripts/add2home.js"></script>
-    
 		<!-- Le styles -->
 		<link rel="stylesheet" type="text/css" href="/css/viewer_manifest.css">
 
@@ -337,5 +321,36 @@
 	        s.parentNode.insertBefore(g,s)}(document,'script'));
 	    </script>
 		
+    <!-- JCD: Script to prompt iOS users to add the app to their home screen. -->
+    <!-- http://cubiq.org/add-to-home-screen -->
+    <link rel="stylesheet" href="/css/add2home.css">
+    <script type="text/javascript">
+    var addToHomeConfig = {
+      animationIn: 'bubble',
+      animationOut: 'drop',
+      lifespan:10000,
+      expire:2,
+      touchIcon:true,
+      message:'Download the <a href="http://readium.newzealandeducated.com/lml58_panz_epub.epub">EPUB3 version</a> for offline use.'
+    };
+    </script>
+    <!-- JCD: The add2home script is disabled, as the iPad's apple-mobile-web-app-capable behaviour is a bit buggy for our publication. -->
+    <script type="application/javascript" src="/scripts/add2home.js"></script>
+    
+	    <script>
+/*
+        // JCD: If we want to lock to a landscape orientation on iPAd, the following will come in handy.
+        // http://stackoverflow.com/questions/1207008/how-do-i-lock-the-orientation-to-portrait-mode-in-a-iphone-web-application
+        $(document).ready(function () {
+          function reorient(e) {
+            var landscape = (Math.abs(window.orientation) == 90);
+            $("body > div").css("-webkit-transform", !landscape ? "rotate(-90deg)" : "");
+          }
+          window.onorientationchange = reorient;
+          window.setTimeout(reorient, 0);
+        });
+*/
+	    </script>
+
 	</body>
 </html>
