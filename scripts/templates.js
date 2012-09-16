@@ -43,7 +43,15 @@ templates['fixed_page_template'] = template(function (Handlebars,depth0,helpers,
   stack1 = foundHelper || depth0.uri;
   if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
   else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "uri", { hash: {} }); }
-  buffer += escapeExpression(stack1) + "\"\n			class='content-sandbox'>\n	</iframe>\n</div>";
+  
+  // JCD: Sort out the weird viewport behaviour of the iPad, whereby it cuts off bits of our content.
+	var iPadStyle = '';
+  var isiPad = /ipad/i.test(navigator.userAgent.toLowerCase());
+  if (isiPad) {
+  	iPadStyle = " style='-webkit-transform: scale(1) translate(50px, 0px);'";
+  }  
+
+  buffer += escapeExpression(stack1) + "\"\n			class='content-sandbox'" + iPadStyle + ">\n	</iframe>\n</div>";
   return buffer;});
 templates['image_page_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;

@@ -311,10 +311,11 @@ $.fn.extend({
     // JCD: Sort out the weird viewport behaviour of the iPad, whereby it cuts off bits of our content.
     var isiPad = /ipad/i.test(navigator.userAgent.toLowerCase());
     if (isiPad) {
-      str = "scale(1) "; 
+      // JCD: This presents our publication such that we can see the entire page in Safari in iPad.
+      str = 'scale(1) translate(0px, 0px)';
+    } else {
+  		str +=	'translate('+vrect.getOffsetX()+'px, '+vrect.getOffsetY()+'px)'
     }
-
-		str +=	'translate('+vrect.getOffsetX()+'px, '+vrect.getOffsetY()+'px)'
 		return str;
 	};
 	

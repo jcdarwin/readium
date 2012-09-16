@@ -231,6 +231,15 @@ Readium.Views.FixedPageView = Backbone.View.extend({
 	},
 
 	iframe: function() {
+
+    // JCD: This presents our publication such that we can see the entire page in Safari on the iPad.
+    var isiPad = /ipad/i.test(navigator.userAgent.toLowerCase());
+    if (isiPad) {
+      $($('.content-sandbox').contents().find('body')).each ( function(ind) {
+        $($('.content-sandbox').contents().find('body')[ind]).css('zoom', '0.9');		
+      });
+    }
+    
 		return this.$('.content-sandbox')[0];
 	}
 });
