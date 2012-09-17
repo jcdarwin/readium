@@ -226,13 +226,16 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		var that = this;
 		$(dom).on("swipeleft", function(e) {
 			e.preventDefault();
-			that.pages.goRight();
-			
+      // JCD: Treat a swipe as a page turn
+			$('#next-page-button').click();
+			//that.pages.goRight();			
 		});
 
 		$(dom).on("swiperight", function(e) {
 			e.preventDefault();
-			that.pages.goLeft();
+      // JCD: Treat a swipe as a page turn
+			$('#prev-page-button').click();
+			//that.pages.goLeft();
 		});
 
     // JCD: Catch and transmit Firefox mouse wheel events to the parent,

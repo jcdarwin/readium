@@ -58,7 +58,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		$("#readium-book-view-el").on("swipeleft", function(e) {
 			e.preventDefault();
 			that.model.paginator.v.pages.goRight();
-			
 		});
 
 		$("#readium-book-view-el").on("swiperight", function(e) {
