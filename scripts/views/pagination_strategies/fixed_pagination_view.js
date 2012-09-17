@@ -236,7 +236,7 @@ Readium.Views.FixedPageView = Backbone.View.extend({
     var isiPad = /ipad/i.test(navigator.userAgent.toLowerCase());
     if (isiPad) {
       $($('.content-sandbox').contents().find('body')).each ( function(ind) {
-        $($('.content-sandbox').contents().find('body')[ind]).css('zoom', '0.9');		
+        $($('.content-sandbox').contents().find('body')[ind]).addClass("ipad");
       });
     }
     
