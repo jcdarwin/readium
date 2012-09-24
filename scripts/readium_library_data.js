@@ -168,7 +168,7 @@ window.ReadiumLibraryData = [
 		"author": "Publishers Association of New Zealand",
 		"cover_href": "/epub_content/lml58_panz_epub/lml58_panz_epub_individual/section_06/OEBPS/images/cover.jpg",
 		"created_at": "2012-09-04T00:11:17.450Z",
-		"description": "The Learning Landscape: Global Education Services",
+		"description": "The Learning Landscape: Global Education Systems Ltd",
 		"epub_version": "3.0",
 		"fixed_layout": true,
 		"id": "learningmedia.co.nz/lml58_panz_epub_individual/section_06",
